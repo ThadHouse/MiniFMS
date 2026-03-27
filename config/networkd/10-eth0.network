@@ -1,0 +1,13 @@
+[Match]
+Name=eth0
+
+[Network]
+LinkLocalAddressing=no
+VLAN=eth0.10
+VLAN=eth0.20
+VLAN=eth0.30
+VLAN=eth0.40
+VLAN=eth0.50
+VLAN=eth0.60
+VLAN=eth0.100
+VLAN=eth0.150

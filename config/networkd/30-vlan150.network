@@ -1,0 +1,9 @@
+[Match]
+Name=eth0.150
+
+[Network]
+DHCP=ipv4
+
+[DHCPv4]
+UseDNS=yes
+UseRoutes=yes
