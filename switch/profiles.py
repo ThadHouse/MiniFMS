@@ -176,6 +176,13 @@ PROFILE_LAN = {
     },
 }
 
+# Static IP assignments for each switch (on VLAN 100 / LAN)
+SWITCH_IPS = {
+    "robot_a": "10.0.100.10",
+    "robot_b": "10.0.100.11",
+    "lan": "10.0.100.12",
+}
+
 PROFILES = {
     "robot_a": PROFILE_ROBOT_A,
     "robot_b": PROFILE_ROBOT_B,

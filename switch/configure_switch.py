@@ -3,7 +3,14 @@
 Configure a TP-Link TL-SG108E switch with a MiniFMS VLAN profile.
 
 Usage:
-    python3 configure_switch.py <profile> <switch_ip> [--password <password>]
+    python3 configure_switch.py <profile> [--password <password>]
+
+The switch is expected to be at 192.168.0.1 (factory default).
+The admin password will be set to 'minifms' (override with --password).
+After configuration, the switch will be assigned a new static IP:
+    robot_a  -> 10.0.100.10
+    robot_b  -> 10.0.100.11
+    lan      -> 10.0.100.12
 
 Profiles:
     robot_a  - VLANs 10,20,30,40 + LAN(100) + WAN(150), trunk on 7-8
@@ -11,9 +18,9 @@ Profiles:
     lan      - LAN(100) on ports 1-6, trunk on 7-8
 
 Examples:
-    python3 configure_switch.py robot_a 192.168.0.1
-    python3 configure_switch.py robot_b 192.168.0.2 --password secret
-    python3 configure_switch.py lan 192.168.0.3
+    python3 configure_switch.py robot_a
+    python3 configure_switch.py robot_b --password secret
+    python3 configure_switch.py lan
 
 Requirements:
     pip install requests
@@ -22,8 +29,10 @@ Requirements:
 import argparse
 import sys
 
-from profiles import PROFILES
+from profiles import PROFILES, SWITCH_IPS
 from sg108e import SG108E
+
+FACTORY_IP = "192.168.0.1"
 
 
 def print_profile_summary(name, profile):
@@ -56,9 +65,8 @@ def main():
         choices=list(PROFILES.keys()),
         help="Switch profile to apply",
     )
-    parser.add_argument("host", help="Switch IP address")
     parser.add_argument(
-        "--password", default="admin", help="Switch admin password (default: admin)"
+        "--password", default="minifms", help="Switch admin password (default: minifms)"
     )
     parser.add_argument(
         "--dry-run",
@@ -69,23 +77,28 @@ def main():
     args = parser.parse_args()
 
     profile = PROFILES[args.profile]
+    new_ip = SWITCH_IPS[args.profile]
     print()
     print_profile_summary(args.profile, profile)
+    print(f"  New switch IP: {new_ip}")
 
     if args.dry_run:
         print("Dry run mode - no changes applied.")
         return
 
     print()
-    confirm = input(f"Apply profile '{args.profile}' to {args.host}? [y/N] ")
+    confirm = input(
+        f"Apply profile '{args.profile}' to {FACTORY_IP} "
+        f"(new IP: {new_ip})? [y/N] "
+    )
     if confirm.lower() != "y":
         print("Aborted.")
         sys.exit(0)
 
     print()
-    switch = SG108E(host=args.host, password=args.password)
+    switch = SG108E(host=FACTORY_IP, password=args.password)
     try:
-        switch.apply_profile(profile)
+        switch.apply_profile(profile, new_ip=new_ip)
         print()
         print("Switch configured successfully.")
     except Exception as e:
