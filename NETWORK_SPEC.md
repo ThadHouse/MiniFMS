@@ -23,6 +23,10 @@ Raspberry Pi configured as a VLAN router for FRC-style robot field management. U
 - Pi is a DHCP client on this VLAN
 - Used for LAN internet access (NAT masquerade)
 
+### Switch Config (VLAN 200)
+- Subnet: 192.168.0.0/24
+- Pi static IP: 192.168.0.50
+
 ## Firewall Rules (Robot VLAN -> LAN allowed traffic)
 Derived from Cisco switch ACLs:
 - `permit udp any 10.0.100.0/24 eq 1160` — UDP to LAN port 1160 from any source port
@@ -51,7 +55,7 @@ Note: The original ACL had `any eq 1145` as source port constraint on the UDP 11
 
 ## Technical Details
 - Base interface: eth0 (802.1Q trunk)
-- VLAN interfaces: eth0.{10,20,30,40,50,60,100,150}
+- VLAN interfaces: eth0.{10,20,30,40,50,60,100,150,200}
 - DNS upstream: 8.8.8.8, 1.1.1.1
 - SSH allowed from LAN only (port 22)
 - Services: systemd-networkd, dnsmasq, nftables
