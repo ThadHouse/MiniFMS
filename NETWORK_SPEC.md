@@ -6,7 +6,7 @@ Raspberry Pi configured as a VLAN router for FRC-style robot field management. U
 ## VLANs
 
 ### Robot VLANs (6 total, isolated)
-- VLAN IDs: 10, 20, 30, 40, 50, 60
+- VLAN IDs: 10, 20, 30, 40, 50, 60, 70, 80
 - Subnets: 10.0.X.0/24 (where X = VLAN ID)
 - Pi gateway address: 10.0.X.4
 - DHCP range: 10.0.X.100 - 10.0.X.155
@@ -51,7 +51,7 @@ Note: The original ACL had `any eq 1145` as source port constraint on the UDP 11
 
 ## Technical Details
 - Base interface: eth0 (802.1Q trunk)
-- VLAN interfaces: eth0.{10,20,30,40,50,60,100,150}
+- VLAN interfaces: eth0.{10,20,30,40,50,60,70,80,100,150}
 - DNS upstream: 8.8.8.8, 1.1.1.1
 - SSH allowed from LAN only (port 22)
 - Services: systemd-networkd, dnsmasq, nftables

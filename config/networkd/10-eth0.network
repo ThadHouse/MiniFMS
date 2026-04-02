@@ -9,5 +9,7 @@ VLAN=eth0.30
 VLAN=eth0.40
 VLAN=eth0.50
 VLAN=eth0.60
+VLAN=eth0.70
+VLAN=eth0.80
 VLAN=eth0.100
 VLAN=eth0.150
