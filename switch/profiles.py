@@ -67,12 +67,6 @@ PROFILE_ROBOT_A = {
             "tagged": TRUNK_PORTS,
             "untagged": [6],
         },
-        {
-            "id": 200,
-            "name": "VLAN200",
-            "tagged": TRUNK_PORTS,
-            "untagged": [],
-        },
     ],
     "pvids": {
         1: 10,
@@ -135,12 +129,6 @@ PROFILE_ROBOT_B = {
             "tagged": TRUNK_PORTS,
             "untagged": [5, 6],
         },
-        {
-            "id": 200,
-            "name": "VLAN200",
-            "tagged": TRUNK_PORTS,
-            "untagged": [],
-        },
     ],
     "pvids": {
         1: 50,
@@ -174,12 +162,6 @@ PROFILE_LAN = {
             "name": "LAN",
             "tagged": TRUNK_PORTS,
             "untagged": [1, 2, 3, 4, 5, 6],
-        },
-        {
-            "id": 200,
-            "name": "VLAN200",
-            "tagged": TRUNK_PORTS,
-            "untagged": [],
         },
     ],
     "pvids": {
